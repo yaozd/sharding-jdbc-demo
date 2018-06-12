@@ -151,21 +151,29 @@ public class DataSourceConfig {
         ShardingRuleConfiguration shardingRuleConfig;
         shardingRuleConfig = new ShardingRuleConfiguration();
         shardingRuleConfig.getTableRuleConfigs().add(getUserTableRuleConfiguration());
-//        shardingRuleConfig.getTableRuleConfigs().add(getOrderItemTableRuleConfiguration());
+        //shardingRuleConfig.getTableRuleConfigs().add(getOrderItemTableRuleConfiguration());
         shardingRuleConfig.getBindingTableGroups().add("user_info");
+        //默认分库分表的规则
         shardingRuleConfig.setDefaultDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration("user_id", DemoDatabaseShardingAlgorithm.class.getName()));
         shardingRuleConfig.setDefaultTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("user_id", DemoTableShardingAlgorithm.class.getName()));
-//        shardingRuleConfig.setDefaultTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("order_id", DemoTableShardingAlgorithm.class.getName()));
+        //shardingRuleConfig.setDefaultTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("order_id", DemoTableShardingAlgorithm.class.getName()));
         return new ShardingDataSource(shardingRuleConfig.build(createDataSourceMap()));
-//        return ShardingDataSourceFactory.createDataSource(createDataSourceMap(), shardingRuleConfig);
+        //return ShardingDataSourceFactory.createDataSource(createDataSourceMap(), shardingRuleConfig);
     }
 
     @Bean
     TableRuleConfiguration getUserTableRuleConfiguration() {
         TableRuleConfiguration orderTableRuleConfig = new TableRuleConfiguration();
         orderTableRuleConfig.setLogicTable("user_info");
+        //table的配置写法-01(是groovy动态语法，代表0到1进行循环)
         orderTableRuleConfig.setActualDataNodes("user_${0..1}.user_info_${0..1}");
+        //table的配置写法-02
+        //orderTableRuleConfig.setActualDataNodes("user_0.user_info_0,user_0.user_info_1,user_1.user_info_0,user_1.user_info_1");
+        //
         orderTableRuleConfig.setKeyGeneratorColumnName("user_id");
+        //自定义分库分表的规则
+        //orderTableRuleConfig.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("user_id",DemoTableShardingAlgorithm.class.getName()));
+        //orderTableRuleConfig.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration("user_id",DemoDatabaseShardingAlgorithm.class.getName()));
         return orderTableRuleConfig;
     }
 
@@ -204,7 +212,7 @@ public class DataSourceConfig {
 
     private Map<String, DataSource> createDataSourceMap() {
         Map<String, DataSource> result = new HashMap<>();
-        result.put("user_0", createDataSource("user"));
+        result.put("user_0", createDataSource("user_0"));
         result.put("user_1", createDataSource("user_1"));
         return result;
     }
