@@ -10,6 +10,7 @@ public class DemoDatabaseShardingAlgorithm implements PreciseShardingAlgorithm<L
     @Override
     public String doSharding(Collection<String> collection, PreciseShardingValue<Long> preciseShardingValue) {
         for (String each : collection) {
+            System.out.println(each);
             if (each.endsWith(Long.parseLong(preciseShardingValue.getValue().toString()) % 2+"")) {
                 return each;
             }

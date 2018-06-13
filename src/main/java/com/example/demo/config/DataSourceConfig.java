@@ -161,14 +161,13 @@ public class DataSourceConfig {
         //return ShardingDataSourceFactory.createDataSource(createDataSourceMap(), shardingRuleConfig);
     }
 
-    @Bean
     TableRuleConfiguration getUserTableRuleConfiguration() {
         TableRuleConfiguration orderTableRuleConfig = new TableRuleConfiguration();
         orderTableRuleConfig.setLogicTable("user_info");
         //table的配置写法-01(是groovy动态语法，代表0到1进行循环)
-        orderTableRuleConfig.setActualDataNodes("user_${0..1}.user_info_${0..1}");
+        //orderTableRuleConfig.setActualDataNodes("user_${0..1}.user_info_${0..1}");
         //table的配置写法-02
-        //orderTableRuleConfig.setActualDataNodes("user_0.user_info_0,user_0.user_info_1,user_1.user_info_0,user_1.user_info_1");
+        orderTableRuleConfig.setActualDataNodes("user_0.user_info_0,user_0.user_info_1,user_1.user_info_0,user_1.user_info_1");
         //
         orderTableRuleConfig.setKeyGeneratorColumnName("user_id");
         //自定义分库分表的规则

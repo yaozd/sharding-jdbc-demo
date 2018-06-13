@@ -45,4 +45,10 @@ public interface UserInfoMapper {
      * @mbg.generated Tue Mar 13 23:47:19 CST 2018
      */
     int updateByPrimaryKey(UserInfo record);
+
+    /***
+     * 创建表
+     * @return
+     */
+    int createUserInfoIfNotExistsTable();
 }

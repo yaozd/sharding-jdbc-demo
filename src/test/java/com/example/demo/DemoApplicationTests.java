@@ -44,4 +44,12 @@ public class DemoApplicationTests {
 
 	}
 
+	/***
+	 * 创建分库分表的表：user_0.user_info_0,user_0.user_info_1,user_1.user_info_0,user_1.user_info_1-createUserInfoIfNotExistsTable
+	 */
+	@Test
+	public void createTable(){
+		demoService.createTable();
+	}
+
 }

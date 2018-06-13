@@ -45,4 +45,8 @@ public class DemoService {
         }
         System.out.println("over..........");
     }
+    public void createTable(){
+       int val= userInfoMapper.createUserInfoIfNotExistsTable();
+        System.out.println(val);
+    }
 }
