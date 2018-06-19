@@ -168,8 +168,9 @@ public class DataSourceConfig {
         //orderTableRuleConfig.setActualDataNodes("user_${0..1}.user_info_${0..1}");
         //table的配置写法-02
         orderTableRuleConfig.setActualDataNodes("user_0.user_info_0,user_0.user_info_1,user_1.user_info_0,user_1.user_info_1");
-        //
-        orderTableRuleConfig.setKeyGeneratorColumnName("user_id");
+        //自动生在主键的设置，但必须配合useGeneratedKeys="true" keyProperty="orderId" =>com.yzd.mybatisGenerator.root项目中有说明
+        //<insert id="insertSelective" parameterType="com.yzd.shardingJDBC.demo.entity.TbOrder" useGeneratedKeys="true" keyProperty="orderId" >
+        //orderTableRuleConfig.setKeyGeneratorColumnName("user_id");
         //自定义分库分表的规则
         //orderTableRuleConfig.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("user_id",DemoTableShardingAlgorithm.class.getName()));
         //orderTableRuleConfig.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration("user_id",DemoDatabaseShardingAlgorithm.class.getName()));
